@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useCallback } from 'react';
-import { Drawer, Button, Badge } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
-import { ProductGrid } from './ProductGrid';
-import { CartPanel } from './CartPanel';
-import { CartItem, Product } from '@/types';
+import { useState, useCallback } from "react";
+import { Drawer, Button, Badge } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ProductGrid } from "./ProductGrid";
+import { CartPanel } from "./CartPanel";
+import { CartItem, Product } from "@/types";
 
 export function SalesInterface() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -22,7 +22,7 @@ export function SalesInterface() {
         return prev.map((item) =>
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         );
       }
 
@@ -34,14 +34,19 @@ export function SalesInterface() {
     setCartItems((prev) =>
       prev.map((item) =>
         item.product.id === productId
-          ? { ...item, quantity: Math.max(1, Math.min(quantity, item.product.stock)) }
-          : item
-      )
+          ? {
+              ...item,
+              quantity: Math.max(1, Math.min(quantity, item.product.stock)),
+            }
+          : item,
+      ),
     );
   }, []);
 
   const removeItem = useCallback((productId: string) => {
-    setCartItems((prev) => prev.filter((item) => item.product.id !== productId));
+    setCartItems((prev) =>
+      prev.filter((item) => item.product.id !== productId),
+    );
   }, []);
 
   const clearCart = useCallback(() => {
@@ -86,7 +91,7 @@ export function SalesInterface() {
         placement="right"
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
-        width="100%"
+        size="100%"
         styles={{ body: { padding: 0 } }}
         className="lg:hidden"
       >

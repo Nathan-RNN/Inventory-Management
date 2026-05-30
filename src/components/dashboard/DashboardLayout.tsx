@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Layout, Menu, Button, Typography, Drawer } from 'antd';
+import { useState } from "react";
+import { Layout, Menu, Button, Typography, Drawer } from "antd";
 import {
   DashboardOutlined,
   AppstoreOutlined,
@@ -9,31 +9,31 @@ import {
   HistoryOutlined,
   MenuOutlined,
   HomeOutlined,
-} from '@ant-design/icons';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+} from "@ant-design/icons";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const { Sider, Header, Content } = Layout;
 const { Title } = Typography;
 
 const menuItems = [
   {
-    key: '/dashboard',
+    key: "/dashboard",
     icon: <DashboardOutlined />,
     label: <Link href="/dashboard">Tableau de bord</Link>,
   },
   {
-    key: '/dashboard/products',
+    key: "/dashboard/products",
     icon: <AppstoreOutlined />,
     label: <Link href="/dashboard/products">Produits</Link>,
   },
   {
-    key: '/dashboard/sales',
+    key: "/dashboard/sales",
     icon: <ShoppingCartOutlined />,
     label: <Link href="/dashboard/sales">Ventes</Link>,
   },
   {
-    key: '/dashboard/history',
+    key: "/dashboard/history",
     icon: <HistoryOutlined />,
     label: <Link href="/dashboard/history">Historique</Link>,
   },
@@ -44,13 +44,14 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
-  const selectedKey = menuItems.find((item) => pathname === item.key)?.key || '/dashboard';
+  const selectedKey =
+    menuItems.find((item) => pathname === item.key)?.key || "/dashboard";
 
   const sidebarContent = (
     <>
       <div className="flex h-16 items-center justify-center border-b border-border">
-        <Title level={4} style={{ margin: 0, color: '#1677ff' }}>
-          {collapsed ? 'GB' : 'GestiBoutik'}
+        <Title level={4} style={{ margin: 0, color: "#1677ff" }}>
+          {collapsed ? "GB" : "GestiBoutik"}
         </Title>
       </div>
       <Menu
@@ -74,10 +75,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         collapsedWidth={80}
         className="hidden lg:block"
         style={{
-          background: '#fff',
-          borderRight: '1px solid #d9d9d9',
-          position: 'fixed',
-          height: '100vh',
+          background: "#fff",
+          borderRight: "1px solid #d9d9d9",
+          position: "fixed",
+          height: "100vh",
           left: 0,
           top: 0,
           zIndex: 100,
@@ -91,7 +92,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         placement="left"
         open={mobileDrawerOpen}
         onClose={() => setMobileDrawerOpen(false)}
-        width={250}
+        size={250}
         styles={{ body: { padding: 0 } }}
         className="lg:hidden"
       >
@@ -101,7 +102,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <Layout
         style={{
           marginLeft: collapsed ? 80 : 200,
-          transition: 'margin-left 0.2s',
+          transition: "margin-left 0.2s",
         }}
         className="lg:ml-[200px] max-lg:ml-0"
       >
@@ -109,9 +110,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <Header
           className="flex items-center justify-between px-4 lg:px-6"
           style={{
-            background: '#fff',
-            borderBottom: '1px solid #d9d9d9',
-            position: 'sticky',
+            background: "#fff",
+            borderBottom: "1px solid #d9d9d9",
+            position: "sticky",
             top: 0,
             zIndex: 50,
             height: 64,
@@ -125,10 +126,10 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               className="lg:hidden"
             />
             <Title level={4} className="hidden lg:block" style={{ margin: 0 }}>
-              {pathname === '/dashboard' && 'Tableau de bord'}
-              {pathname === '/dashboard/products' && 'Gestion des produits'}
-              {pathname === '/dashboard/sales' && 'Point de vente'}
-              {pathname === '/dashboard/history' && 'Historique des ventes'}
+              {pathname === "/dashboard" && "Tableau de bord"}
+              {pathname === "/dashboard/products" && "Gestion des produits"}
+              {pathname === "/dashboard/sales" && "Point de vente"}
+              {pathname === "/dashboard/history" && "Historique des ventes"}
             </Title>
           </div>
 
