@@ -1,4 +1,4 @@
-import { HeroSection, FeaturesSection, AdvantagesSection, Footer } from '@/src/components/landing';
+import { HeroSection, FeaturesSection, AdvantagesSection, Footer } from '@/components/landing';
 
 export default function HomePage() {
   return (
