@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
   Table,
   Button,
@@ -13,18 +13,18 @@ import {
   Empty,
   Skeleton,
   App,
-} from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+} from "antd";
+import type { ColumnsType } from "antd/es/table";
 import {
   PlusOutlined,
   SearchOutlined,
   EditOutlined,
   DeleteOutlined,
-} from '@ant-design/icons';
-import { useProducts, useDeleteProduct } from '@/hooks';
-import { Product, ProductFilters } from '@/types';
-import { formatPrice, getCategoryLabel, isLowStock } from '@/utils';
-import { ProductModal } from './ProductModal';
+} from "@ant-design/icons";
+import { useProducts, useDeleteProduct } from "@/hooks";
+import { Product, ProductFilters } from "@/types";
+import { formatPrice, getCategoryLabel, isLowStock } from "@/utils";
+import { ProductModal } from "./ProductModal";
 
 export function ProductsTable() {
   const { message } = App.useApp();
@@ -34,8 +34,8 @@ export function ProductsTable() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [filters, setFilters] = useState<ProductFilters>({
-    search: '',
-    categorie: 'all',
+    search: "",
+    categorie: "all",
   });
 
   const filteredProducts = useMemo(() => {
@@ -44,10 +44,12 @@ export function ProductsTable() {
     return products.filter((product) => {
       const matchesSearch =
         product.nom.toLowerCase().includes(filters.search.toLowerCase()) ||
-        product.description.toLowerCase().includes(filters.search.toLowerCase());
+        product.description
+          .toLowerCase()
+          .includes(filters.search.toLowerCase());
 
       const matchesCategory =
-        filters.categorie === 'all' || product.categorie === filters.categorie;
+        filters.categorie === "all" || product.categorie === filters.categorie;
 
       return matchesSearch && matchesCategory;
     });
@@ -61,9 +63,9 @@ export function ProductsTable() {
   const handleDelete = async (id: string) => {
     try {
       await deleteProduct.mutateAsync(id);
-      message.success('Produit supprimé avec succès');
+      message.success("Produit supprimé avec succès");
     } catch {
-      message.error('Erreur lors de la suppression');
+      message.error("Erreur lors de la suppression");
     }
   };
 
@@ -74,9 +76,9 @@ export function ProductsTable() {
 
   const columns: ColumnsType<Product> = [
     {
-      title: 'Nom',
-      dataIndex: 'nom',
-      key: 'nom',
+      title: "Nom",
+      dataIndex: "nom",
+      key: "nom",
       sorter: (a, b) => a.nom.localeCompare(b.nom),
       render: (nom: string, record: Product) => (
         <div>
@@ -88,39 +90,43 @@ export function ProductsTable() {
       ),
     },
     {
-      title: 'Catégorie',
-      dataIndex: 'categorie',
-      key: 'categorie',
-      render: (categorie: 'quincaillerie' | 'ppn') => (
-        <Tag color={categorie === 'quincaillerie' ? 'blue' : 'green'}>
+      title: "Catégorie",
+      dataIndex: "categorie",
+      key: "categorie",
+      render: (categorie: "quincaillerie" | "ppn") => (
+        <Tag color={categorie === "quincaillerie" ? "blue" : "green"}>
           {getCategoryLabel(categorie)}
         </Tag>
       ),
-      responsive: ['md'],
+      responsive: ["md"],
     },
     {
-      title: 'Prix',
-      dataIndex: 'prix',
-      key: 'prix',
+      title: "Prix",
+      dataIndex: "prix",
+      key: "prix",
       sorter: (a, b) => a.prix - b.prix,
       render: (prix: number) => (
         <span className="font-medium">{formatPrice(prix)}</span>
       ),
     },
     {
-      title: 'Stock',
-      dataIndex: 'stock',
-      key: 'stock',
+      title: "Stock",
+      dataIndex: "stock",
+      key: "stock",
       sorter: (a, b) => a.stock - b.stock,
       render: (stock: number) => (
-        <Tag color={isLowStock(stock) ? (stock <= 2 ? 'error' : 'warning') : 'default'}>
+        <Tag
+          color={
+            isLowStock(stock) ? (stock <= 2 ? "error" : "warning") : "default"
+          }
+        >
           {stock} unité(s)
         </Tag>
       ),
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       width: 120,
       render: (_: unknown, record: Product) => (
         <Space>
@@ -162,13 +168,17 @@ export function ProductsTable() {
               placeholder="Rechercher un produit..."
               prefix={<SearchOutlined />}
               value={filters.search}
-              onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
+              onChange={(e) =>
+                setFilters((f) => ({ ...f, search: e.target.value }))
+              }
               className="w-full sm:w-64"
               allowClear
             />
             <Select
               value={filters.categorie}
-              onChange={(value) => setFilters((f) => ({ ...f, categorie: value }))}
+              onChange={(value) =>
+                setFilters((f) => ({ ...f, categorie: value }))
+              }
               className="w-full sm:w-48"
             >
               <Select.Option value="all">Toutes catégories</Select.Option>

@@ -65,7 +65,7 @@ export function ProductModal({ open, onClose, product }: ProductModalProps) {
       okText={isEditing ? "Mettre à jour" : "Créer"}
       cancelText="Annuler"
       confirmLoading={createProduct.isPending || updateProduct.isPending}
-      destroyOnClose
+      destroyOnHidden
       width={500}
     >
       <Form form={form} layout="vertical" className="mt-4">
