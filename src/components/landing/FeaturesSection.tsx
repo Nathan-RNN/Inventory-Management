@@ -51,7 +51,7 @@ export function FeaturesSection() {
             <Card
               key={index}
               className="transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-              bordered={false}
+              variant="borderless"
               style={{ background: '#fafafa' }}
             >
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm">

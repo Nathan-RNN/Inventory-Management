@@ -43,7 +43,7 @@ export function Footer() {
             <Text strong style={{ color: '#fff', display: 'block', marginBottom: 16 }}>
               Navigation
             </Text>
-            <Space direction="vertical" size="small">
+            <Space orientation="vertical" size="small">
               <Link href="/" className="text-white/65 transition-colors hover:text-white">
                 Accueil
               </Link>
@@ -64,7 +64,7 @@ export function Footer() {
             <Text strong style={{ color: '#fff', display: 'block', marginBottom: 16 }}>
               Contact
             </Text>
-            <Space direction="vertical" size="small">
+            <Space orientation="vertical" size="small">
               <div className="flex items-center gap-2 text-white/65">
                 <MailOutlined />
                 <span>contact@gestiboutik.com</span>
@@ -83,7 +83,7 @@ export function Footer() {
           <Text style={{ color: 'rgba(255,255,255,0.45)' }}>
             &copy; {currentYear} GestiBoutik. Tous droits réservés.
           </Text>
-          <Space split={<Divider type="vertical" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />}>
+          <Space separator={<Divider orientation="vertical" style={{ borderColor: 'rgba(255,255,255,0.2)' }} />}>
             <Link href="#" className="text-white/45 text-sm transition-colors hover:text-white/65">
               Politique de confidentialité
             </Link>
