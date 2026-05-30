@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
   Table,
   Card,
@@ -11,14 +11,23 @@ import {
   Statistic,
   Skeleton,
   Empty,
-} from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import { SearchOutlined, EyeOutlined, CalendarOutlined } from '@ant-design/icons';
-import dayjs, { Dayjs } from 'dayjs';
-import { useSales } from '@/hooks';
-import { Sale } from '@/types';
-import { formatPrice, formatDateTime, formatDate, getStatusColor, getStatusLabel } from '@/utils';
-import { SaleDetailDrawer } from './SaleDetailDrawer';
+} from "antd";
+import type { ColumnsType } from "antd/es/table";
+import {
+  SearchOutlined,
+  EyeOutlined,
+  CalendarOutlined,
+} from "@ant-design/icons";
+import dayjs, { Dayjs } from "dayjs";
+import { useSales } from "@/hooks";
+import { Sale } from "@/types";
+import {
+  formatPrice,
+  formatDate,
+  getStatusColor,
+  getStatusLabel,
+} from "@/utils";
+import { SaleDetailDrawer } from "./SaleDetailDrawer";
 
 const { RangePicker } = DatePicker;
 
@@ -27,8 +36,10 @@ export function HistoryTable() {
 
   const [selectedSale, setSelectedSale] = useState<Sale | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [search, setSearch] = useState('');
-  const [dateRange, setDateRange] = useState<[Dayjs | null, Dayjs | null] | null>(null);
+  const [search, setSearch] = useState("");
+  const [dateRange, setDateRange] = useState<
+    [Dayjs | null, Dayjs | null] | null
+  >(null);
 
   const filteredSales = useMemo(() => {
     if (!sales) return [];
@@ -36,9 +47,9 @@ export function HistoryTable() {
     return sales.filter((sale) => {
       // Search filter
       const matchesSearch =
-        search === '' ||
+        search === "" ||
         sale.items.some((item) =>
-          item.productName.toLowerCase().includes(search.toLowerCase())
+          item.productName.toLowerCase().includes(search.toLowerCase()),
         ) ||
         sale.id.includes(search);
 
@@ -46,8 +57,9 @@ export function HistoryTable() {
       let matchesDate = true;
       if (dateRange && dateRange[0] && dateRange[1]) {
         const saleDate = dayjs(sale.date);
-        matchesDate = saleDate.isAfter(dateRange[0].startOf('day')) &&
-                      saleDate.isBefore(dateRange[1].endOf('day'));
+        matchesDate =
+          saleDate.isAfter(dateRange[0].startOf("day")) &&
+          saleDate.isBefore(dateRange[1].endOf("day"));
       }
 
       return matchesSearch && matchesDate;
@@ -55,18 +67,18 @@ export function HistoryTable() {
   }, [sales, search, dateRange]);
 
   // Calculate today's total
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const todayTotal = useMemo(() => {
     if (!sales) return 0;
     return sales
-      .filter((s) => s.date.startsWith(today) && s.status === 'completed')
+      .filter((s) => s.date.startsWith(today) && s.status === "completed")
       .reduce((sum, s) => sum + s.total, 0);
   }, [sales, today]);
 
   // Calculate filtered total
   const filteredTotal = useMemo(() => {
     return filteredSales
-      .filter((s) => s.status === 'completed')
+      .filter((s) => s.status === "completed")
       .reduce((sum, s) => sum + s.total, 0);
   }, [filteredSales]);
 
@@ -77,32 +89,32 @@ export function HistoryTable() {
 
   const columns: ColumnsType<Sale> = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
       width: 80,
       render: (id: string) => `#${id}`,
     },
     {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
       sorter: (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-      defaultSortOrder: 'ascend',
+      defaultSortOrder: "ascend",
       render: (date: string) => (
         <div>
           <div className="font-medium">{formatDate(date)}</div>
           <div className="text-xs text-muted">
-            {dayjs(date).format('HH:mm')}
+            {dayjs(date).format("HH:mm")}
           </div>
         </div>
       ),
     },
     {
-      title: 'Articles',
-      dataIndex: 'items',
-      key: 'items',
-      render: (items: Sale['items']) => (
+      title: "Articles",
+      dataIndex: "items",
+      key: "items",
+      render: (items: Sale["items"]) => (
         <div>
           <div>{items.length} produit(s)</div>
           <div className="text-xs text-muted">
@@ -110,29 +122,29 @@ export function HistoryTable() {
           </div>
         </div>
       ),
-      responsive: ['md'],
+      responsive: ["md"],
     },
     {
-      title: 'Total',
-      dataIndex: 'total',
-      key: 'total',
+      title: "Total",
+      dataIndex: "total",
+      key: "total",
       sorter: (a, b) => a.total - b.total,
       render: (total: number) => (
         <span className="font-semibold text-primary">{formatPrice(total)}</span>
       ),
     },
     {
-      title: 'Statut',
-      dataIndex: 'status',
-      key: 'status',
-      render: (status: Sale['status']) => (
+      title: "Statut",
+      dataIndex: "status",
+      key: "status",
+      render: (status: Sale["status"]) => (
         <Tag color={getStatusColor(status)}>{getStatusLabel(status)}</Tag>
       ),
-      responsive: ['sm'],
+      responsive: ["sm"],
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Actions",
+      key: "actions",
       width: 80,
       render: (_: unknown, record: Sale) => (
         <Button
@@ -163,7 +175,9 @@ export function HistoryTable() {
             title="Total du jour"
             value={todayTotal}
             formatter={(val) => formatPrice(Number(val))}
-            valueStyle={{ color: '#1677ff', fontWeight: 600 }}
+            styles={{
+              content: { color: "#1677ff", fontWeight: 600 },
+            }}
             prefix={<CalendarOutlined />}
           />
         </Card>
@@ -172,7 +186,7 @@ export function HistoryTable() {
             title="Total affiché"
             value={filteredTotal}
             formatter={(val) => formatPrice(Number(val))}
-            valueStyle={{ color: '#52c41a', fontWeight: 600 }}
+            styles={{ content: { color: "#52c41a", fontWeight: 600 } }}
           />
         </Card>
         <Card className="sm:col-span-2 lg:col-span-1">
@@ -199,7 +213,7 @@ export function HistoryTable() {
           <RangePicker
             value={dateRange}
             onChange={(dates) => setDateRange(dates)}
-            placeholder={['Date début', 'Date fin']}
+            placeholder={["Date début", "Date fin"]}
             className="w-full sm:w-auto"
             format="DD/MM/YYYY"
           />
@@ -207,7 +221,7 @@ export function HistoryTable() {
             <Button
               type="link"
               onClick={() => {
-                setSearch('');
+                setSearch("");
                 setDateRange(null);
               }}
             >
