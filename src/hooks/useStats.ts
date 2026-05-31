@@ -4,6 +4,7 @@ import { statsService } from '@/services';
 export const statsKeys = {
   all: ['stats'] as const,
   dashboard: () => [...statsKeys.all, 'dashboard'] as const,
+  extended: () => [...statsKeys.all, 'extended'] as const,
   todayTotal: () => [...statsKeys.all, 'todayTotal'] as const,
 };
 
@@ -12,6 +13,16 @@ export function useDashboardStats() {
     queryKey: statsKeys.dashboard(),
     queryFn: async () => {
       const response = await statsService.getDashboardStats();
+      return response.data;
+    },
+  });
+}
+
+export function useExtendedStats() {
+  return useQuery({
+    queryKey: statsKeys.extended(),
+    queryFn: async () => {
+      const response = await statsService.getExtendedStats();
       return response.data;
     },
   });
