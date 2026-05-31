@@ -69,3 +69,80 @@ export function generateId(): string {
 export function isLowStock(stock: number, threshold: number = 5): boolean {
   return stock <= threshold;
 }
+
+// Credit status helpers
+export function getCreditStatusColor(
+  status: 'PENDING_PAYMENT' | 'PARTIALLY_PAID' | 'PAID' | 'CANCELLED',
+): string {
+  const colors = {
+    PENDING_PAYMENT: 'orange',
+    PARTIALLY_PAID: 'blue',
+    PAID: 'green',
+    CANCELLED: 'red',
+  };
+  return colors[status];
+}
+
+export function getCreditStatusLabel(
+  status: 'PENDING_PAYMENT' | 'PARTIALLY_PAID' | 'PAID' | 'CANCELLED',
+): string {
+  const labels = {
+    PENDING_PAYMENT: 'En attente',
+    PARTIALLY_PAID: 'Partiellement payé',
+    PAID: 'Soldé',
+    CANCELLED: 'Annulé',
+  };
+  return labels[status];
+}
+
+export function getPaymentMethodLabel(
+  method: 'cash' | 'mobile_money' | 'transfer' | 'other',
+): string {
+  const labels = {
+    cash: 'Espèces',
+    mobile_money: 'Mobile Money',
+    transfer: 'Virement',
+    other: 'Autre',
+  };
+  return labels[method];
+}
+
+export function getInternalUsageReasonLabel(
+  reason:
+    | 'usage_maison'
+    | 'cadeau_client'
+    | 'produit_casse'
+    | 'perte'
+    | 'echantillon'
+    | 'autre',
+): string {
+  const labels = {
+    usage_maison: 'Usage maison',
+    cadeau_client: 'Cadeau client',
+    produit_casse: 'Produit cassé',
+    perte: 'Perte',
+    echantillon: 'Échantillon',
+    autre: 'Autre',
+  };
+  return labels[reason];
+}
+
+export function getInternalUsageReasonColor(
+  reason:
+    | 'usage_maison'
+    | 'cadeau_client'
+    | 'produit_casse'
+    | 'perte'
+    | 'echantillon'
+    | 'autre',
+): string {
+  const colors = {
+    usage_maison: 'cyan',
+    cadeau_client: 'purple',
+    produit_casse: 'orange',
+    perte: 'red',
+    echantillon: 'geekblue',
+    autre: 'default',
+  };
+  return colors[reason];
+}

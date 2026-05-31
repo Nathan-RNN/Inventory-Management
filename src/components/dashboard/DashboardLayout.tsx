@@ -7,6 +7,8 @@ import {
   AppstoreOutlined,
   ShoppingCartOutlined,
   HistoryOutlined,
+  CreditCardOutlined,
+  ExportOutlined,
   MenuOutlined,
   HomeOutlined,
 } from "@ant-design/icons";
@@ -36,6 +38,16 @@ const menuItems = [
     key: "/dashboard/history",
     icon: <HistoryOutlined />,
     label: <Link href="/dashboard/history">Historique</Link>,
+  },
+  {
+    key: "/dashboard/credits",
+    icon: <CreditCardOutlined />,
+    label: <Link href="/dashboard/credits">Crédits clients</Link>,
+  },
+  {
+    key: "/dashboard/internal-usage",
+    icon: <ExportOutlined />,
+    label: <Link href="/dashboard/internal-usage">Sorties internes</Link>,
   },
 ];
 
@@ -130,6 +142,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
               {pathname === "/dashboard/products" && "Gestion des produits"}
               {pathname === "/dashboard/sales" && "Point de vente"}
               {pathname === "/dashboard/history" && "Historique des ventes"}
+              {pathname === "/dashboard/credits" && "Crédits clients"}
+              {pathname === "/dashboard/internal-usage" && "Sorties internes"}
             </Title>
           </div>
 

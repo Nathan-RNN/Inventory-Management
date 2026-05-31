@@ -1,7 +1,7 @@
 'use client';
 
-import { Typography, Button } from 'antd';
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { Typography, Button, Space } from 'antd';
+import { ShoppingCartOutlined, CreditCardOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import { StatsCards, RecentSales, LowStockProducts } from '@/components/dashboard';
 
@@ -20,11 +20,18 @@ export default function DashboardPage() {
             {"Voici un aperçu de l'activité de votre boutique aujourd'hui."}
           </Paragraph>
         </div>
-        <Link href="/dashboard/sales">
-          <Button type="primary" size="large" icon={<ShoppingCartOutlined />}>
-            Nouvelle vente
-          </Button>
-        </Link>
+        <Space wrap>
+          <Link href="/dashboard/sales">
+            <Button type="primary" size="large" icon={<ShoppingCartOutlined />}>
+              Nouvelle vente
+            </Button>
+          </Link>
+          <Link href="/dashboard/credits">
+            <Button size="large" icon={<CreditCardOutlined />}>
+              Nouveau crédit
+            </Button>
+          </Link>
+        </Space>
       </div>
 
       {/* Stats Cards */}
